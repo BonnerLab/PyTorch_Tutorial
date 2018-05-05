@@ -1,4 +1,4 @@
-#ModiFace PyTorch Tutorial
+# ModiFace PyTorch Tutorial
 This respository provides:
 
 - A high-level overview of how PyTorch works, 
@@ -13,14 +13,14 @@ If you're already convinced of the benefits of PyTorch and
 know roughly how it works, feel free to skip the rest of this
 README and jump straight into the code.
 
-###Requirements
+### Requirements
 
 - PyTorch 0.4 (see PyTorch website for installation instructions)
 - TensorboardX (can install through pip or conda using this name)
 
-###How PyTorch works (very briefly)
+### How PyTorch works (very briefly)
 
-#####How most ML libraries work
+##### How most ML libraries work
 
 Most machine learning libraries work by allowing you to 
 define static computation graphs, which then run on an 
@@ -60,7 +60,7 @@ tool that lets you walk through your model, but it is difficult
 to use when compared to simply working in an IDE with your
 favourite debugger.
 
-#####How PyTorch differs
+##### How PyTorch differs
 
 In contrast to libraries that use static computation graphs,
 PyTorch builds a dynamic graph every time your model processes
@@ -83,7 +83,7 @@ well. The difference is that the entire computation graph
 isn't executing on that backend, and therefore permits much
 more integration with Python.
 
-###Project structure in PyTorch
+### Project structure in PyTorch
 
 Perhaps more important than the advantages described above, 
 the PyTorch API was designed very intuitively, drastically
@@ -93,7 +93,7 @@ you'll find understanding a good PyTorch project is a _much_
 easier task than understanding a functionally equivalent
 TensorFlow (or even Keras) project.
 
-#####The model
+##### The model
 
 You define your model in PyTorch as a class that inherits
 from the `torch.nn.Module` superclass. In fact, every layer
@@ -109,7 +109,7 @@ returns on or more outputs. This is where your model's
 connections are essentially being specified. Any arbiraty
 Python code and control flow can be used in this function.
 
-#####The dataset
+##### The dataset
 
 This is the class that handles the loading of one sample
 of data at a time. It inherits from `torch.utils.data.Dataset`
@@ -128,7 +128,7 @@ about the batchsize, whether or not to shuffle the data
 after each epoch, how many threads to use for loading the
 data, etc.
 
-#####The training loop
+##### The training loop
 
 Typically, your training script instantiates the model,
 instantiates training and test/validation data loaders,
@@ -146,7 +146,7 @@ for epoch in n_epochs:
         optimizer.step()        # update weights using the parameter gradients
 ```
 
-###The rest of this repository
+### The rest of this repository
 
 The rest of this repository forms a complete working
 example training on the MNIST dataset. It covers:
