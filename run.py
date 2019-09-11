@@ -24,7 +24,7 @@ if __name__ == '__main__':
     if torch.cuda.is_available():   # Put model on GPU, if one is available
         alexnet.cuda()
 
-    test_set = CustomDataset(data_dir='data', resolution=(32, 32))
+    test_set = CustomDataset(data_dir='data', resolution=(224, 224))
     test_loader = DataLoader(dataset=test_set, batch_size=1)
 
     print('Running dataset')

@@ -11,7 +11,6 @@ class CustomDataset(Dataset):
         self.resolution = resolution    # (height, width) tuple you want to resize your images to
 
         data = os.listdir(data_dir)                         # Get a list of every filename in the data directory
-        data = [d for d in data if '.jpg' in d]             # Filter out any files that aren't jpg images
         data = [os.path.join(data_dir, d) for d in data]    # Turn the filenames into file paths
         self.data = data
 
