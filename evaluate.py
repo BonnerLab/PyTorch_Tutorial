@@ -2,13 +2,13 @@ import torch
 from torch.utils.data import DataLoader
 import os
 
-from models import Model, PretrainedModel
+from models import CustomModel, PretrainedModel
 from MNISTDataset import MNISTDataset
 import utils
 
 
 def classification_accuracy(predictions, targets):
-    _, top_classes = predictions.max(1)     # Returns (value, index)
+    _, top_classes = predictions.max(dim=1)             # Returns (value, index)
     n_correct = (top_classes == targets).sum().item()
     accuracy = n_correct / len(targets)
     return accuracy
@@ -31,7 +31,7 @@ def evaluate_dataset(model, dataloader):
 
             # Compute error metrics and update running losses
             accuracy = classification_accuracy(predictions, labels)
-            running_losses = utils.update_losses(running_losses, {'accuracy': accuracy}, len(dataloader))
+            running_losses = utils.update_metrics(running_losses, {'accuracy': accuracy}, len(dataloader))
 
     model.train()
     return running_losses
@@ -41,7 +41,7 @@ if __name__ == '__main__':
     use_custom_model = True
 
     if use_custom_model:
-        model = Model(in_channels=3, n_classes=10)
+        model = CustomModel(in_channels=3, n_classes=10)
         model_name = 'custom_model'
     else:
         model = PretrainedModel(n_classes=10)

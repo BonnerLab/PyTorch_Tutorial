@@ -1,35 +1,28 @@
 import torch
 
 
-def device(tensor_list):
-    if torch.cuda.is_available():
-        return [t.cuda() for t in tensor_list]
-    else:
-        return tensor_list
-
-
 def step_num(epoch, batch, dataloader):
     return (epoch - 1) * len(dataloader) + batch
 
 
-def update_losses(running_losses, losses, scale):
-    if running_losses is None:
-        running_losses = {l: 0 for l in losses}
+def update_metrics(running_metrics, losses, scale):
+    if running_metrics is None:
+        running_metrics = {l: 0 for l in losses}
     for l in losses:
-        running_losses[l] += losses[l] / scale
-    return running_losses
+        running_metrics[l] += losses[l] / scale
+    return running_metrics
 
 
-def print_losses(running_losses, step, n_steps):
+def print_metrics(running_metrics, step, n_steps):
     print('Step [%d / %d]' % (step, n_steps))
-    for loss_name, loss in running_losses.items():
+    for loss_name, loss in running_metrics.items():
         print('%s: %.5f' % (loss_name, loss))
     print('')
 
 
-def log_to_tensorboard(writer, running_losses, step, training=True):
+def log_to_tensorboard(writer, running_metrics, step, training=True):
     location = 'training/' if training else 'test/'
-    for loss_name, loss in running_losses.items():
+    for loss_name, loss in running_metrics.items():
         writer.add_scalar(location + loss_name, loss, step)
 
 

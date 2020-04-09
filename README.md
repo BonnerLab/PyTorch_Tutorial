@@ -1,94 +1,26 @@
-# ModiFace PyTorch Tutorial
+# Bonner Lab PyTorch Tutorial
 This respository provides:
 
 - A high-level overview of how PyTorch works, 
 including the typical structure of projects and brief remarks
-about how it works (and differs from static graph computation libraries
-such as TensorFlow).
+about how it works.
 - A working example of training a model on MNIST data, including
 working with PyTorch Modules, Datasets, fine-tunning models, and
 augmenting image data.
-
-If you're already convinced of the benefits of PyTorch and
-know roughly how it works, feel free to skip the rest of this
-README and jump straight into the code.
+- Jupyter Notebooks showing how to use models for basic purposes
+(e.g. extract activations from a desired network layer/channel).
 
 ### Requirements
 
-- PyTorch 0.4 (see PyTorch website for installation instructions)
-- TensorboardX (can install through pip or conda using this name)
-
-### How PyTorch works (very briefly)
-
-##### How most ML libraries work
-
-Most machine learning libraries work by allowing you to 
-define static computation graphs, which then run on an 
-efficient backend (usually C++). For example, you can
-run a model in tensorflow by writing something like:
-
-```predictions = tf.Session().run([model_output_node])```
-
-Although efficient, defining static computation graphs 
-provides two major disadvantages:
-
-- It becomes very difficult to write a model with control 
-and general higher level code (e.g. your model does two
-separate things depending on its input, or executes custom
-logic in something like a for-loop). On top of requiring you
-code in a fundamentally different way, this results in other
-practical inconveniences. For instance, TensorFlow often
-necessitates writing completely different graphs for training
-and inference. Another task where the difficulties of static
-graph computation become aparent are when coding RNN's. The 
-intuitive way to code RNN's is to have inputs propagate through 
-a for-loop. Since this is impossible (or at least, very
-convoluted) to achieve in TensorFlow, the API around RNN's in 
-TensorFlow must provide many functions to do things such as 
-unroll a sequence of inputs, and inference type with arbirarily 
-long sequence lengths is even more of a pain to work with.
-- Your model and whatever other nodes are part of the computation
-graph execute completely outside of your coding environment.
-When you have run-time errors in your computation graph, you
-don't get line numbers of when something went wrong. You get
-error messages from the backend which are often hard to reconcile
-with the code that you wrote. Moreover, when there isn't any error
-but training still doesn't seem to be working, you can't easily
-just use a debugger to walk through data propagating through your
-model. To be fair, TensorFlow does provide a command-line
-tool that lets you walk through your model, but it is difficult
-to use when compared to simply working in an IDE with your
-favourite debugger.
-
-##### How PyTorch differs
-
-In contrast to libraries that use static computation graphs,
-PyTorch builds a dynamic graph every time your model processes
-inputs. This dynamic graph includes all the necessary information
-to perform backpropagation, such as :
-
-- The sequence of operations that were performed
-- The intermediate values (activations) of your layeres
-
-At face value, this may sound very inefficient in terms
-of computation time and memory performance, but due to some
-magic by the developers of PyTorch training ends up being
-comporable to (and by some accounts, faster) than static
-computation graph libraries.
-
-It is important to note that this doesn't mean every bit
-of code is executing locally in Python. In fact, the
-important layers and operations execute on a C++ backend as
-well. The difference is that the entire computation graph
-isn't executing on that backend, and therefore permits much
-more integration with Python.
+- PyTorch+Torchvision 
+`pip install torch torchvision`
+- TensorboardX (for visualizing training curves) 
+`pip install tensorboardx`
 
 ### Project structure in PyTorch
 
-Perhaps more important than the advantages described above, 
-the PyTorch API was designed very intuitively, drastically
-reducing boilerplate code and making project structure
-intuitive. This difference cannot be overstated. I think that
+The PyTorch API was designed very intuitive, minimizing boilerplate code. 
+This difference from alternative frameworks cannot be overstated. I think that
 you'll find understanding a good PyTorch project is a _much_
 easier task than understanding a functionally equivalent
 TensorFlow (or even Keras) project.
@@ -162,3 +94,6 @@ the project as a whole. The two scripts that you can run
 are `train.py` and `evaluate.py` (neither of which takes
 any arguments). The recommended entry-point to walk through
 all of the code is to start at `train.py`.
+
+Jupyter Notebooks are also provided to show minimally-functining examples
+of tasks useful for research purposes (e.g. extracting the activations at a specific layer).
