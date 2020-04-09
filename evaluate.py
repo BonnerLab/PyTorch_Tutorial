@@ -23,9 +23,10 @@ def evaluate_dataset(model, dataloader):
 
             # Obtain the inputs/targets
             images, labels = data
-            labels = labels.view(
-                -1)  # Labels must be 1 dimensional with class indices, but DataLoader creates batch dimension
-            images, labels = utils.device([images, labels])
+            labels = labels.view(-1)  # Labels must be 1 dimensional with class indices, but DataLoader creates batch dimension
+            # Send to GPU if possible
+            if torch.cuda.is_available():
+                images, labels = images.cuda(), labels.cuda()
 
             predictions = model(images)
 
