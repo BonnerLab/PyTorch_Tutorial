@@ -10,12 +10,23 @@ augmenting image data.
 - Jupyter Notebooks showing how to use models for basic purposes
 (e.g. extract activations from a desired network layer/channel).
 
-### Requirements
+### Requirements/Instructions
 
-- PyTorch+Torchvision 
+- Install Python 3.x from Anaconda https://www.anaconda.com/distribution/
+- (optional) Create a new virtual environment for PyTorch projects
+    - Open the command prompt on your system (e.g. terminal for macOS)
+    - Create a new virtual environment called pytorch `conda create -n pytorch pip`
+    - Activate your environment `conda activate pytorch`. This needs to be done every time you
+    work with this project. If you're using a Python IDE, you'll need to point it to the python
+    path for the environment we created
+- Install PyTorch and Torchvision
 `pip install torch torchvision`
-- TensorboardX (for visualizing training curves) 
+- Install TensorboardX (for visualizing training curves) 
 `pip install tensorboardx`
+- Install Jupyter Notebooks (for running the tutorial)
+`pip install jupyter`
+- You can now work on the tutorial Jupyter Notebook
+`jupyter notebook tutorial.ipynb`
 
 ### Project structure in PyTorch
 
